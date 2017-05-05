@@ -1,0 +1,26 @@
+{
+  "name": "auth0-rules-runtime",
+  "version": "0.0.0",
+  "description": "Wrapper of webtask runtime for helping to write tests for Auth0 rules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cycloidio/auth0-rules-runtime.git"
+  },
+  "keywords": [
+    "auth0",
+    "auth0-rules",
+    "webtask",
+    "runtime",
+    "testing"
+  ],
+  "author": "Cycloid (https://cycloid.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cycloidio/auth0-rules-runtime/issues"
+  },
+  "homepage": "https://github.com/cycloidio/auth0-rules-runtime#readme"
+}
