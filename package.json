@@ -5,7 +5,7 @@
   "main": "src/sandbox.js",
   "scripts": {
     "lint": "standard ./src/**/*.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --trace-deprecation --trace-warnings --recursive --sort ./test/**/*.spec.js"
   },
   "repository": {
     "type": "git",
