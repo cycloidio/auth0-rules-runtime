@@ -2,7 +2,7 @@
   "name": "auth0-rules-runtime",
   "version": "0.0.0",
   "description": "Wrapper of webtask runtime for helping to write tests for Auth0 rules",
-  "main": "index.js",
+  "main": "src/sandbox.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/cycloidio/auth0-rules-runtime/issues"
   },
-  "homepage": "https://github.com/cycloidio/auth0-rules-runtime#readme"
+  "homepage": "https://github.com/cycloidio/auth0-rules-runtime#readme",
+  "dependencies": {
+    "ajv": "^5.0.1",
+    "webtask-runtime": "^1.6.0"
+  }
 }
