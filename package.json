@@ -29,6 +29,9 @@
     "webtask-runtime": "^1.6.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "dirty-chai": "^1.2.2",
+    "mocha": "^3.4.1",
     "standard": "^10.0.2"
   }
 }
