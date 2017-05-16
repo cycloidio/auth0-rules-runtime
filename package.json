@@ -4,6 +4,7 @@
   "description": "Wrapper of webtask runtime for helping to write tests for Auth0 rules",
   "main": "src/sandbox.js",
   "scripts": {
+    "lint": "standard ./src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,5 +27,8 @@
   "dependencies": {
     "ajv": "^5.0.1",
     "webtask-runtime": "^1.6.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.2"
   }
 }
