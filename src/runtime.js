@@ -1,6 +1,6 @@
 const runtime = require('webtask-runtime')
 const jsonValidator = require('ajv')({ allErrors: true, useDefaults: true })
-const { SchemaValiationError } = require('./errors')
+const { SchemaValidationError } = require('./errors')
 const schemaUser = require('./json-schemas/rules-user-profile.json')
 const schemaCtx = require('./json-schemas/rules-ctx.json')
 
@@ -12,13 +12,13 @@ module.exports = run
 function run (ruleFn, ruleUser, ruleContext) {
   if (!userValidate(ruleUser)) {
     return Promise.reject(
-      new SchemaValiationError('Invalid user object', userValidate.errors)
+      new SchemaValidationError('Invalid user object', userValidate.errors)
     )
   }
 
   if (!ctxValidate(ruleContext)) {
     return Promise.reject(
-      new SchemaValiationError('Invalid context object', ctxValidate.errors)
+      new SchemaValidationError('Invalid context object', ctxValidate.errors)
     )
   }
 

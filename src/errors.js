@@ -1,10 +1,10 @@
-function SchemaValiationError (message, valErrorsList) {
+function SchemaValidationError (message, valErrorsList) {
   this.message = message
   this.validationErrors = valErrorsList
 }
 
-SchemaValiationError.prototype = Object.create(Error.prototype)
+SchemaValidationError.prototype = Object.create(Error.prototype)
 
 module.exports = {
-  SchemaValiationError
+  SchemaValidationError
 }
