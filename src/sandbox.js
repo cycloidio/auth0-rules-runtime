@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const vm = require('vm')
 const { extend: auth0Extend } = require('auth0-authz-rules-api')
-const { run: ruleRunner } = require('./runtime')
+const runtime = require('./runtime')
 
 module.exports = exec
 
@@ -19,9 +19,9 @@ function exec (ruleScriptPath, user, context, configuration = {}) {
 
   let ruleCode
   try {
-    ruleCode = fs.readFileSync(ruleScriptPath)
+    ruleCode = fs.readFileSync(ruleScriptPath, 'utf8')
   } catch (e) {
-    e.message = `Error reading the rule scrip. ${e.message}`
+    e.message = `Error reading the rule script. ${e.message}`
     return Promise.reject(e)
   }
 
@@ -30,18 +30,18 @@ function exec (ruleScriptPath, user, context, configuration = {}) {
   let auth0Env = {}
   auth0Extend(auth0Env)
 
-  const sandbox = Object.assing(auth0Env, {
+  const sandbox = Object.assign(auth0Env, {
     require,
-    ruleRunner,
+    runtime,
     configuration,
     ruleUser: user,
     ruleContext: context
   }, global)
 
   // Run the rule in the sandbox and return the result, which is the
-  // promise returned by the ruleRunner function
+  // promise returned by the runtime function
   return vm.runInNewContext(
-    `ruleRunner(${ruleCode}, ruleUser, ruleContext)`,
+    `runtime(${ruleCode}, ruleUser, ruleContext)`,
     sandbox
   )
 }
@@ -66,6 +66,10 @@ function normalizeRequires (ruleCode) {
     const requireCall = chunk[0].replace(regExpVersion, '')
     const [ before, after ] = ruleCode.split(chunk[0])
     ruleParts.push(before, requireCall, after)
+  }
+
+  if (ruleParts.length === 0) {
+    return ruleCode
   }
 
   return ruleParts.join('')
