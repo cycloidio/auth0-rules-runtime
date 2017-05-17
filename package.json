@@ -4,7 +4,7 @@
   "description": "Wrapper of webtask runtime for helping to write tests for Auth0 rules",
   "main": "src/sandbox.js",
   "scripts": {
-    "lint": "standard ./src/**/*.js",
+    "lint": "standard ./src/**/*.js ./test/*.js",
     "test": "mocha --trace-deprecation --trace-warnings --recursive --sort ./test/**/*.spec.js"
   },
   "repository": {
