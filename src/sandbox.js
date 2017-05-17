@@ -6,6 +6,42 @@ const runtime = require('./runtime')
 
 module.exports = exec
 
+/**
+ * Executes the Auth0 rule contained in the script file with the provided
+ * user and context object and optionally adding the configuration to the
+ * global scope of the sandbox where the rule is actually executed.
+ *
+ * @param {string} ruleScriptPath - The path to the script which contains the
+ *      Auth0 rule. The path can be absolute or relative. Relative paths are
+ *      resolved from the Node process current working directory
+ *      @see process.pwd()
+ * @param {Object} user - The user data to pass to the rule.
+ *      @see {@link https://auth0.com/docs/user-profile/user-profile-structure}
+ *      and the specified JSON schema in json-schemas/rule-user-profile.json
+ * @param {Object} context - The context data to pass to the rule.
+ *      @see {@link https://auth0.com/docs/rules/context}
+ *      and the specified JSON schema in json-schemas/rule-ctx.json
+ * @param {Object} [configuration] - Key and values settings which are specified
+ *      through the Rules UI. The value must be strings.
+ * @returns {Promise} - Which rejects when there is any error out of the rule,
+ *      for example, if you provided an invalid user or context or configuration
+ *      object
+ *      The promise resolve with an object with the data passed to the callback
+ *      that the rule must call.
+ *      The resolved object has an `error` property when the callback is called
+ *      with an error. This object is the result of stringifying to JSON the
+ *      original Error instance and parsed back to a JS Object. Otherwise the
+ *      resolved object has an `user` an `
+ *      - {Object} [error]: The property exists when the callback is called with
+ *              an error. This object is the result of stringifying to JSON the
+ *              original Error instance and parsed back to a JS Object.
+ *      - {Object} [user]: The property exists when the callback is called
+ *              without an error. It contains the value of the user object
+ *              passed to the callback.
+ *      - {Object} [context]: The property exists when the callback is called
+ *              without an error. It contains the value of the context object
+ *              passed to the callback.
+ */
 function exec (ruleScriptPath, user, context, configuration = {}) {
   try {
     verifyConfigurationObj(configuration)
