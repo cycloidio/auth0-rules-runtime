@@ -44,8 +44,7 @@
   ],
   "properties": {
     "app_metadata": {
-      "type": "object",
-      "default": {}
+      "type": "object"
     },
     "blocked": {
       "type": "boolean",
@@ -104,8 +103,7 @@
       "type": "string"
     },
     "user_metadata": {
-      "type": "object",
-      "default": {}
+      "type": "object"
     },
     "username": {
       "type": "string"
