@@ -8,7 +8,7 @@ This tool has been developed with NodeJS v7 and we don't think to add support fo
 
 ## Install
 
-`npm install import-index-generator`
+`npm install auth0-rules-runtime --save-dev`
 
 NOTE _Yarn_ cannot be used because this tool run in NodeJS v7 (maybe in other previous version if it supports JS2015, but we haven't tried) and we use _auth0-authz-rules-api@^1.0.8_ NPM module for injecting the globals which the Auht0 rules can access, and through it we get a transient dependency (_tedious@~0.1.4_) which specifies that it doesn't support Node v7, so yarn rejects the installation.
 
@@ -87,6 +87,10 @@ run('rules/my-rule.js', user, context)
 })
 
 ```
+
+**NOTE** if your rules use external dependencies (`require(...)`), they have to be installed by you in your local.
+
+On the other hand, Auht0 rules can require a specific module version with the syntax `require('module@x.x.x')`, where `module` is the name of the NPM module to require and the `x.x.x`, the version to install. Because, such syntax is specific of the Auth0 rules, this module rewrite those `require` calls in the rules to normal ones, before running them, hence it's you responsibility to install the correct version, of each module that your rules use.
 
 ## Auth0 references
 
