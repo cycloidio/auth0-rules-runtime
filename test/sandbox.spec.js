@@ -9,6 +9,7 @@ chai.use(dirtyChai)
 describe('sandbox exports a function which', () => {
   const echoRulePath = 'test/fixtures/echo-rule.js'
   const globalsAccessRulePath = 'test/fixtures/globals-access-rule.js'
+  const noLeakGlobalsRulePath = 'test/fixtures/no-leak-globals-rule.js'
   const copyConfigToCtxRulePath = 'test/fixtures/copy-config-to-context-rule.js'
   const validUser = {
     blocked: false,
@@ -114,6 +115,34 @@ describe('sandbox exports a function which', () => {
       },
       (e) => {
         throw new Error(`Expected promise to b resolved, but got error: ${e.message}`)
+      }
+    )
+  })
+
+  it("doesn't leak other globals than the ones in the white list", () => {
+    function clean () {
+      delete global.companyName
+      delete global.firm
+    }
+
+    global.companyName = `Cycloid ${new Date()}`
+    global.firm = () => { return 'Cycloid, your DevOps team!!!' }
+
+    return sandbox(noLeakGlobalsRulePath, validUser, validCtx).then(
+      (r) => {
+        expect(r.user).to.have.property('accessible').and.to.have.length(6)
+        expect(r.user.accessible).to.be.deep.equal(Array(6).fill(true))
+        expect(r.user).to.have.property('unaccessible').and.to.have.length(5)
+        expect(r.user.unaccessible).to.be.deep.equal(Array(5).fill(true))
+      },
+      (e) => {
+        throw new Error(`Expected promise to b resolved, but got error: ${e.message}`)
+      }
+    ).then(
+      clean,
+      (e) => {
+        clean()
+        throw e
       }
     )
   })
