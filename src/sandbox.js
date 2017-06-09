@@ -68,16 +68,28 @@ function exec (ruleScriptPath, user, context, configuration = {}) {
 
   const sandbox = Object.assign(auth0Env, {
     require,
-    runtime,
     configuration,
-    ruleUser: user,
-    ruleContext: context
-  }, global)
+    __runtime: runtime,
+    __ruleUser: user,
+    __ruleContext: context
+  }, auth0Globals())
 
   // Run the rule in the sandbox and return the result, which is the
   // promise returned by the runtime function
   return vm.runInNewContext(
-    `runtime(${ruleCode}, ruleUser, ruleContext)`,
+    `
+    var runtime = __runtime
+    var ruleUser = __ruleUser
+    var ruleContext = __ruleContext
+
+    // Set required script globals to undefined for avoid to expose them to the
+    // rule script
+    __runtime = undefined
+    __ruleUser = undefined
+    __ruleContext = undefined
+
+    runtime(${ruleCode}, ruleUser, ruleContext)
+    `,
     sandbox
   )
 }
@@ -109,4 +121,29 @@ function normalizeRequires (ruleCode) {
   }
 
   return ruleParts.join('')
+}
+
+function auth0Globals () {
+  const whiteList = [
+    'process',
+    'Buffer',
+    'clearImmediate',
+    'clearInterval',
+    'clearTimeout',
+    'setImmediate',
+    'setInterval',
+    'setTimeout',
+    'console'
+  ]
+
+  let gl = whiteList.reduce((g, e) => {
+    g[e] = global[e]
+    return g
+  }, {})
+
+  gl.global = gl
+  gl.GLOBAL = gl
+  gl.root = gl
+
+  return gl
 }
