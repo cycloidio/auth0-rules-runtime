@@ -89,7 +89,7 @@ describe('sandbox exports a function which', () => {
         expect(r.user.shouldBeAllTrue).to.be.deep.equal(Array(6).fill(true))
       },
       (e) => {
-        throw new Error(`Expected promise to b resolved, but got error: ${e.message}`)
+        throw new Error(`Expected promise to be resolved, but got error: ${e.message}`)
       }
     )
   })
@@ -101,7 +101,7 @@ describe('sandbox exports a function which', () => {
         expect(r.context).to.have.property('configuration').and.to.be.deep.equal(config)
       },
       (e) => {
-        throw new Error(`Expected promise to b resolved, but got error: ${e.message}`)
+        throw new Error(`Expected promise to be resolved, but got error: ${e.message}`)
       }
     )
   })
@@ -114,7 +114,7 @@ describe('sandbox exports a function which', () => {
         expect(r).to.have.property('context').and.to.be.deep.equal(validCtx)
       },
       (e) => {
-        throw new Error(`Expected promise to b resolved, but got error: ${e.message}`)
+        throw new Error(`Expected promise to be resolved, but got error: ${e.message}`)
       }
     )
   })
@@ -136,7 +136,7 @@ describe('sandbox exports a function which', () => {
         expect(r.user.unaccessible).to.be.deep.equal(Array(5).fill(true))
       },
       (e) => {
-        throw new Error(`Expected promise to b resolved, but got error: ${e.message}`)
+        throw new Error(`Expected promise to be resolved, but got error: ${e.message}`)
       }
     ).then(
       clean,
