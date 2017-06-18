@@ -104,7 +104,7 @@ describe('runtime exports a function which', () => {
         expect(r.context).and.to.be.deep.equal(validCtx)
       },
       (e) => {
-        throw new Error(`Expected promise to b resolved, but got error: ${e.message}`)
+        throw new Error(`Expected promise to be resolved, but got error: ${e.message}`)
       }
     )
   })
@@ -122,7 +122,7 @@ describe('runtime exports a function which', () => {
         )
       },
       (e) => {
-        throw new Error(`Expected promise to b resolved, but got error: ${e.message}`)
+        throw new Error(`Expected promise to be resolved, but got error: ${e.message}`)
       }
     )
   })
@@ -139,7 +139,7 @@ describe('runtime exports a function which', () => {
         expect(r).to.have.property('context').and.to.be.deep.equal({ connection })
       },
       (e) => {
-        throw new Error(`Expected promise to b resolved, but got error: ${e.message}`)
+        throw new Error(`Expected promise to be resolved, but got error: ${e.message}`)
       }
     )
   })
