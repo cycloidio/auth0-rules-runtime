@@ -4,7 +4,7 @@
   "definitions": {
     "userIdentity": {
       "type": "object",
-      "require": [
+      "required": [
         "connection",
         "isSocial",
         "provider",
@@ -39,8 +39,7 @@
     "name",
     "nickname",
     "picture",
-    "updated_at",
-    "user_id"
+    "updated_at"
   ],
   "properties": {
     "app_metadata": {
@@ -59,13 +58,16 @@
     },
     "identities": {
       "type": "array",
-      "item": {
+      "items": {
         "$ref": "#/definitions/userIdentity"
       },
       "minItems": 1
     },
     "multifactor": {
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
     },
     "last_ip": {
       "type": "string",
@@ -96,6 +98,10 @@
       "format": "uri"
     },
     "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created": {
       "type": "string",
       "format": "date-time"
     },
