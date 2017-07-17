@@ -1,6 +1,6 @@
 {
   "name": "auth0-rules-runtime",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Wrapper of webtask runtime for helping to write tests for Auth0 rules",
   "main": "src/sandbox.js",
   "scripts": {
